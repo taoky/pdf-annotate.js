@@ -12,7 +12,8 @@ import {
   findSVGAtPoint,
   getOffsetAnnotationRect,
   getMetadata,
-  convertToSvgPoint
+  convertToSvgPoint,
+  scaleDown
 } from './utils';
 
 let _enabled = false;
@@ -249,20 +250,17 @@ function handleDocumentMouseup(e) {
     }
 
     if (type === 'point') {
-      // Broken
-      /*
       [...target].forEach((t, i) => {
         let moveTo = {
-          x: overlay.offsetLeft + 3,
-          y: overlay.offsetTop + 3
+          x: overlay.offsetLeft,
+          y: overlay.offsetTop
         };
         t.setAttribute(attribX, moveTo.x);
         t.setAttribute(attribY, moveTo.y);
-        annotation[attribX] = moveTo.x;
-        annotation[attribY] = moveTo.y;
+        let scaled_pos = scaleDown(svg, moveTo);
+        annotation[attribX] = scaled_pos.x;
+        annotation[attribY] = scaled_pos.y;
       });
-      */
-      return;
     }
     else if (['area', 'highlight', 'textbox', 'circle', 'fillcircle', 'emptycircle'].indexOf(type) > -1) {
       let modelStart = convertToSvgPoint([dragStartX, dragStartY], svg);
