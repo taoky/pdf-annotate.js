@@ -28,12 +28,11 @@ const OVERLAY_BORDER_SIZE = 3;
  */
 function createEditOverlay(target) {
   destroyEditOverlay();
-
   overlay = document.createElement('div');
   let anchor = document.createElement('a');
   let parentNode = findSVGContainer(target).parentNode;
   let id = target.getAttribute('data-pdf-annotate-id');
-  let rect = getOffsetAnnotationRect(target);
+  let rect = getOffsetAnnotationRect(target, true);
   let styleLeft = rect.left - OVERLAY_BORDER_SIZE;
   let styleTop = rect.top - OVERLAY_BORDER_SIZE;
 

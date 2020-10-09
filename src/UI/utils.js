@@ -91,7 +91,7 @@ export function findAnnotationAtPoint(x, y) {
   // Find a target element within SVG
   for (let i = 0, l = elements.length; i < l; i++) {
     let el = elements[i];
-    if (pointIntersectsRect(x, y, getOffsetAnnotationRect(el))) {   
+    if (pointIntersectsRect(x, y, getOffsetAnnotationRect(el))) {
       return el;
     }
   }
@@ -117,7 +117,7 @@ export function pointIntersectsRect(x, y, rect) {
  * @param {Element} el The element to get the rect of
  * @return {Object} The dimensions of the element
  */
-export function getOffsetAnnotationRect(el) {
+export function getOffsetAnnotationRect(el, offset = false) {
   let rect = el.getBoundingClientRect();
   let { width, height } = rect;
   let extraOffsetWidth = 0;
@@ -130,6 +130,10 @@ export function getOffsetAnnotationRect(el) {
     height = bbox.height;
   }
   let { offsetLeft, offsetTop } = getOffset(el);
+  if (!offset) {
+    offsetLeft = 0;
+    offsetTop = 0;
+  }
   return {
     top: rect.top - offsetTop + extraOffsetHeight,
     left: rect.left - offsetLeft + extraOffsetWidth,
