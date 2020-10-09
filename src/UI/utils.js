@@ -74,16 +74,29 @@ export function findSVGAtPoint(x, y) {
  * @return {Element} The annotation element or null if one can't be found
  */
 export function findAnnotationAtPoint(x, y) {
-  let el = null;
-  let candidate = document.elementFromPoint(x, y);
-  while (!el && candidate && candidate !== document) {
-    let type = candidate.getAttribute('data-pdf-annotate-type');
-    if (type) {
-      el = candidate;
+  // let el = null;
+  // let candidate = document.elementFromPoint(x, y);
+  // while (!el && candidate && candidate !== document) {
+  //   let type = candidate.getAttribute('data-pdf-annotate-type');
+  //   if (type) {
+  //     el = candidate;
+  //   }
+  //   candidate = candidate.parentNode;
+  // }
+  // return el;
+  let svg = findSVGAtPoint(x, y);
+  if (!svg) { return; }
+  let elements = svg.querySelectorAll('[data-pdf-annotate-type]');
+
+  // Find a target element within SVG
+  for (let i = 0, l = elements.length; i < l; i++) {
+    let el = elements[i];
+    if (pointIntersectsRect(x, y, getOffsetAnnotationRect(el))) {   
+      return el;
     }
-    candidate = candidate.parentNode;
   }
-  return el;
+
+  return null;
 }
 
 /**
