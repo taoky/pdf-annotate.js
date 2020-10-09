@@ -122,7 +122,8 @@ export function getOffsetAnnotationRect(el, offset = false) {
   let { width, height } = rect;
   let extraOffsetWidth = 0;
   let extraOffsetHeight = 0;
-  if (['line', 'path'].indexOf(el.tagName.toLowerCase()) > -1 && el.getBBox) {
+  // if (['line', 'path'].indexOf(el.tagName.toLowerCase()) > -1 && el.getBBox) {
+  if (['line'].indexOf(el.tagName.toLowerCase()) > -1 && el.getBBox) {
     let bbox = el.getBBox();
     extraOffsetWidth = (rect.width - bbox.width) / 2;
     extraOffsetHeight = (rect.height - bbox.height) / 2;
