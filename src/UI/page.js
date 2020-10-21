@@ -12,6 +12,16 @@ const PAGE_TEMPLATE = `
     <div class="` + config.textLayerName + `"></div>
   </div>
 `;
+let eventBus = null;
+
+function getGlobalEventBus(dispatchToDOM = false) {
+  if (!eventBus) {
+    eventBus = new pdfjsViewer.EventBus({
+      dispatchToDOM
+    });
+  }
+  return eventBus;
+}
 
 /**
  * Create a new page to be appended to the DOM.
@@ -76,9 +86,10 @@ export function renderPage(pageNumber, renderOptions) {
       return pdfPage.getTextContent({normalizeWhitespace: true}).then((textContent) => {
         return new Promise((resolve, reject) => {
           // Render text layer for a11y of text content
+          let eventBus = getGlobalEventBus();
           let textLayer = page.querySelector(config.textClassQuery());
           let textLayerFactory = new pdfjsViewer.DefaultTextLayerFactory();
-          let textLayerBuilder = textLayerFactory.createTextLayerBuilder(textLayer, pageNumber - 1, viewport);
+          let textLayerBuilder = textLayerFactory.createTextLayerBuilder(textLayer, pageNumber - 1, viewport, true, eventBus);
           textLayerBuilder.setTextContent(textContent);
           textLayerBuilder.render();
 
