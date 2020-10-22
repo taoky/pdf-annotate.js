@@ -91,7 +91,7 @@ describe('UI::utils', function() {
 
     let textRect = text.getBoundingClientRect();
 
-    equal(findAnnotationAtPoint(textRect.left + 5, textRect.top + 5), text);
+    deepEqual(findAnnotationAtPoint(textRect.left + 5, textRect.top + 5), text);
     equal(findAnnotationAtPoint(textRect.right + 5, textRect.bottom + 5), null);
   });
 
