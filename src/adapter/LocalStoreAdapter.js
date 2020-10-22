@@ -119,35 +119,38 @@ export default class LocalStoreAdapter extends StoreAdapter {
     this.undo = (documentId) => {
       return new Promise((resolve, reject) => {
         if (!this.history[documentId] || this.history[documentId]['idx'] == 0) {
-          reject('No history now.');
+          return reject('No history now.');
+        } else {
+          let idx = this.history[documentId]['idx'];
+          console.log(idx)
+          if (!this.history[documentId]['record'][idx - 1]) {
+            return reject('invalid idx.');
+          } else {
+            let annotations = this.history[documentId]['record'][idx - 1];
+            this.history[documentId]['idx'] = idx - 1;
+            updateAnnotations(documentId, annotations);
+            resolve(true);
+          }
         }
-        let idx = this.history[documentId]['idx'];
-        console.log(idx)
-        if (idx - 1 < 0 || !this.history[documentId]['record'][idx - 1]) {
-          reject('invalid idx.');
-        }
-        let annotations = this.history[documentId]['record'][idx - 1];
-        this.history[documentId]['idx'] = idx - 1;
-        updateAnnotations(documentId, annotations);
-        resolve(true);
       })
     }
 
     this.redo = (documentId) => {
       return new Promise((resolve, reject) => {
-        if (!this.history[documentId] || this.history[documentId]['idx'] == 0) {
-          reject('No history now.');
+        if (!this.history[documentId]) {
+          return reject('No history now.');
+        } else {
+          let idx = this.history[documentId]['idx'];
+          console.log(idx)
+          if (!this.history[documentId]['record'][idx + 1]) {
+            return reject('invalid idx.');
+          } else {
+            let annotations = this.history[documentId]['record'][idx + 1];
+            this.history[documentId]['idx'] = idx + 1;
+            updateAnnotations(documentId, annotations);
+            resolve(true);
+          }
         }
-        let idx = this.history[documentId]['idx'];
-        console.log(idx)
-        if (idx + 1 >= this.history[documentId]['record'].length || 
-            !this.history[documentId]['record'][idx] || !this.history[documentId]['record'][idx + 1]) {
-          reject('invalid idx.');
-        }
-        let annotations = this.history[documentId]['record'][idx + 1];
-        this.history[documentId]['idx'] = idx + 1;
-        updateAnnotations(documentId, annotations);
-        resolve(true);
       })
     }
 
@@ -162,6 +165,7 @@ export default class LocalStoreAdapter extends StoreAdapter {
     }
 
     this.historyStatus = (documentId) => {
+      // TODO: needs test!
       return new Promise((resolve, reject) => {
         let undo = false;
         let redo = false;
@@ -172,7 +176,7 @@ export default class LocalStoreAdapter extends StoreAdapter {
           idx = this.history[documentId]['idx'];
         }
         if (!this.history[documentId]) {
-          
+
         } else {
           clear = true;
           if (this.history[documentId]['idx'] != 0) {
@@ -202,18 +206,13 @@ function updateAnnotations(documentId, annotations, history = null) {
   if (history) {
     if (!history[documentId]) {
       history[documentId] = {
-        'record': [],
-        'idx': 0
+        'record': [getAnnotations(documentId)],
+        'idx': 0  // idx always points to annotation representing current status
       }
     }
     let idx = history[documentId]['idx'];
-    if (!history[documentId]['record'][idx]) {
-      history[documentId]['record'].push(getAnnotations(documentId));
-      history[documentId]['idx'] = history[documentId]['record'].length;
-    } else {
-      history[documentId]['record'][idx] = getAnnotations(documentId);
-      history[documentId]['idx'] = idx + 1;
-    }
+    history[documentId]['record'][idx + 1] = annotations;
+    history[documentId]['idx'] = idx + 1;
     console.log(history);
   }
   localStorage.setItem(`${documentId}/annotations`, JSON.stringify(annotations));
