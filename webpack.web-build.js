@@ -7,7 +7,7 @@ module.exports = {
   mode: 'production',
   output: {
     filename: 'index.js',
-    path: path.join(__dirname, 'web-dist'),
+    path: path.join(__dirname, 'web-dist', '__compiled__'),
     library: 'PDFAnnotate',
     libraryTarget: 'umd'
   },

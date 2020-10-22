@@ -1,0 +1,32 @@
+name: build-web
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12
+        registry-url: https://registry.npmjs.org/
+    - name: Install dependencies
+      run: npm ci
+    - name: Build docs
+      run: |
+        npm run web-build
+        : > web-dist/.nojekyll
+    - name: Deploy to GitHub Pages
+      run: |
+        CINFO="$(git log -1 --pretty="%an: [%h] %s")"
+        git clone --depth=1 --branch=gh-pages --single-branch --no-checkout \
+          "https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" testgithub
+        mv testgithub/.git web-dist/.git && rmdir testgithub/
+        pushd web-dist/ &>/dev/null
+        git add -A
+        git -c user.name=GitHub -c user.email=noreply@github.com commit \
+          -m "Auto deploy from GitHub Actions build ${GITHUB_RUN_NUMBER}" \
+          -m "$CINFO"
+        git push
+        popd &>/dev/null

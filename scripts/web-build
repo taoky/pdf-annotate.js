@@ -1,8 +1,10 @@
 #!/bin/bash
 
+./scripts/shared
 source=./web
 output=./web-dist
 app=./node_modules/.bin/webpack
+cp -rf shared/ web/shared/
 
 mkdir -p $output
 cp -rf ./shared/ $output/shared/

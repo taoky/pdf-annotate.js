@@ -115,7 +115,6 @@ export function renderPage(pageNumber, renderOptions) {
   });
 }
 
-
 /**
  * Only rerender a page (SVG layer) that has annotations updated.
  *
@@ -141,7 +140,6 @@ export function rerenderAnnotations(pageNumber, renderOptions) {
   ]).then(([pdfPage, annotations]) => {
     let page = document.getElementById(`pageContainer${pageNumber}`);
     let svg = page.querySelector(config.annotationClassQuery());
-    let canvas = page.querySelector('.canvasWrapper canvas');
     let totalRotation = (rotate + pdfPage.rotate) % 360;
     let viewport = pdfPage.getViewport({scale: scale, rotation: totalRotation});
 
@@ -149,9 +147,8 @@ export function rerenderAnnotations(pageNumber, renderOptions) {
     return Promise.all([
       PDFJSAnnotate.render(svg, viewport, annotations)
     ]).then(() => {
-      
-    }).then(() => {
 
+    }).then(() => {
       return [pdfPage, annotations];
     });
   });
