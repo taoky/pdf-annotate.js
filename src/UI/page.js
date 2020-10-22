@@ -115,6 +115,48 @@ export function renderPage(pageNumber, renderOptions) {
   });
 }
 
+
+/**
+ * Only rerender a page (SVG layer) that has annotations updated.
+ *
+ * @param {Number} pageNumber The page number to be rendered
+ * @param {Object} renderOptions The options for rendering
+ * @return {Promise} Settled once rendering has completed
+ *  A settled Promise will be either:
+ *    - fulfilled: [pdfPage, annotations]
+ *    - rejected: Error
+ */
+export function rerenderAnnotations(pageNumber, renderOptions) {
+  let {
+    documentId,
+    pdfDocument,
+    scale,
+    rotate
+  } = renderOptions;
+
+  // Load the page and annotations
+  return Promise.all([
+    pdfDocument.getPage(pageNumber),
+    PDFJSAnnotate.getAnnotations(documentId, pageNumber)
+  ]).then(([pdfPage, annotations]) => {
+    let page = document.getElementById(`pageContainer${pageNumber}`);
+    let svg = page.querySelector(config.annotationClassQuery());
+    let canvas = page.querySelector('.canvasWrapper canvas');
+    let totalRotation = (rotate + pdfPage.rotate) % 360;
+    let viewport = pdfPage.getViewport({scale: scale, rotation: totalRotation});
+
+    // Render the SVG
+    return Promise.all([
+      PDFJSAnnotate.render(svg, viewport, annotations)
+    ]).then(() => {
+      
+    }).then(() => {
+
+      return [pdfPage, annotations];
+    });
+  });
+}
+
 /**
  * Scale the elements of a page.
  *

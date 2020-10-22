@@ -7,7 +7,7 @@ import { disablePoint, enablePoint } from './point';
 import { disableRect, enableRect } from './rect';
 import { disableCircle, enableCircle, setCircle, addCircle } from './circle';
 import { disableText, enableText, setText } from './text';
-import { createPage, renderPage } from './page';
+import { createPage, renderPage, rerenderAnnotations } from './page';
 
 export default {
   addEventListener,
@@ -44,5 +44,6 @@ export default {
   setText,
 
   createPage,
-  renderPage
+  renderPage,
+  rerenderAnnotations
 };
