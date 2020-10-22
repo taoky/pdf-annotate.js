@@ -41,7 +41,7 @@ export default {
   /**
    * Getter for the underlying StoreAdapter property
    *
-   * @return {StoreAdapter}
+   * @return {StoreAdapter} The current StoreAdapter
    */
   getStoreAdapter() {
     return this.__storeAdapter;
@@ -83,7 +83,7 @@ export default {
    * @alias StoreAdapter.getAnnotations
    * @param {String} documentId The ID of the document
    * @param {String} pageNumber The page number
-   * @return {Promise}
+   * @return {Promise} Promise that returns with list of annotations for document and page
    */
   getAnnotations(documentId, pageNumber) {
     return this.getStoreAdapter().getAnnotations(...arguments);
