@@ -146,7 +146,7 @@ describe('UI::utils', function() {
       let y1 = parseInt(line.children[0].getAttribute('y1'), 10);
       let y2 = parseInt(line.children[0].getAttribute('y2'), 10);
 
-      deepEqual(getOffsetAnnotationRect(line.children[0]), {
+      deepEqual(getOffsetAnnotationRect(line.children[0], true), {
         width: x2 - x1,
         height: (y2 - y1),
         left: x1,
@@ -163,7 +163,7 @@ describe('UI::utils', function() {
       let rect = textSvgGroup.getBoundingClientRect();
       let svgRect = svg.getBoundingClientRect();
 
-      deepEqual(getOffsetAnnotationRect(text), {
+      deepEqual(getOffsetAnnotationRect(text, true), {
         width: rect.width,
         height: rect.height,
         left: rect.left - svgRect.left,
@@ -190,7 +190,7 @@ describe('UI::utils', function() {
 
       svg.appendChild(rect);
 
-      deepEqual(getOffsetAnnotationRect(rect.children[0]), {
+      deepEqual(getOffsetAnnotationRect(rect.children[0], true), {
         width: parseInt(rect.children[0].getAttribute('width'), 10),
         height: parseInt(rect.children[0].getAttribute('height'), 10),
         left: parseInt(rect.children[0].getAttribute('x'), 10),
@@ -231,7 +231,7 @@ describe('UI::utils', function() {
     rect.setAttribute('data-pdf-annotate-id', 'ann-foo');
     svg.appendChild(rect);
 
-    let size = getOffsetAnnotationRect(rect);
+    let size = getOffsetAnnotationRect(rect, true);
 
     equal(size.left, 53);
     equal(size.top, 103);
@@ -246,7 +246,7 @@ describe('UI::utils', function() {
     let path = createPath();
     svg.appendChild(path);
 
-    let size = getOffsetAnnotationRect(path);
+    let size = getOffsetAnnotationRect(path, true);
 
     equal(size.left, 33);
     equal(size.top, 36);
