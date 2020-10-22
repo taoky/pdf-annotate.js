@@ -19,7 +19,38 @@ export default class StoreAdapter {
         this[key] = definition[key];
       }
     });
+    this.history = {};
   }
+
+  /**
+   * Get all the annotations for a given document.
+   *
+   * @param {String} documentId The ID for the document the annotations belong to
+   * @return {Promise} Promise that returns with list of annotations for document
+   */
+  __getAllAnnotations(documentId) { abstractFunction('getAllAnnotations'); }
+  get getAllAnnotations() { return this.__getAllAnnotations; }
+  set getAllAnnotations(fn) {
+    this.__getAllAnnotations = function getAllAnnotations(documentId) {
+      return fn(...arguments).then((annotations) => {
+        // TODO may be best to have this happen on the server
+        if (annotations.annotations) {
+          annotations.annotations.forEach((a) => {
+            a.documentId = documentId;
+          });
+        }
+        return annotations;
+      });
+    };
+  }
+
+  /**
+   * Return undo, redo and clear status.
+   *
+   * @param {String} documentId The ID for the document the annotations belong to
+   * @return {Promise} Promise that returns with a list of 3 booleans
+   */
+  historyStatus(documentId) { abstractFunction('historyStatus'); }
 
   /**
    * Get all the annotations for a given document and page number.
@@ -158,4 +189,69 @@ export default class StoreAdapter {
       });
     };
   }
+
+  /**
+   * Undo an operation.
+   *
+   * @param {String} documentId The ID for the document the annotations belong to
+   * @return {Promise} Promise that returns with boolean if undo successes
+   */
+  __undo(documentId) { abstractFunction('undo'); }
+  get undo() { return this.__undo; }
+  set undo(fn) {
+    this.__undo = function undo(documentId) {
+      return fn(...arguments).then((success) => {
+        if (success) {
+          // do what?
+        }
+        return success;
+      });
+    };
+  }
+
+  /**
+   * Redo an operation.
+   *
+   * @param {String} documentId The ID for the document the annotations belong to
+   * @return {Promise} Promise that returns with boolean if redo successes
+   */
+  __redo(documentId) { abstractFunction('redo'); }
+  get redo() { return this.__redo; }
+  set redo(fn) {
+    this.__redo = function redo(documentId) {
+      return fn(...arguments).then((success) => {
+        if (success) {
+          // do what?
+        }
+        return success;
+      });
+    };
+  }
+
+  /**
+   * Clear history array.
+   *
+   * @param {String} documentId The ID for the document the annotations belong to
+   * @return {Promise} Promise that returns with boolean if clear successes
+   */
+  __clearHistory(documentId) { abstractFunction('clearHistory'); }
+  get clearHistory() { return this.__clearHistory; }
+  set clearHistory(fn) {
+    this.__clearHistory = function clearHistory(documentId) {
+      return fn(...arguments).then((success) => {
+        if (success) {
+          // do what?
+        }
+        return success;
+      });
+    };
+  }
+
+  /**
+   * Return undo, redo and clear status.
+   *
+   * @param {String} documentId The ID for the document the annotations belong to
+   * @return {Promise} Promise that returns with a list of 3 booleans
+   */
+  historyStatus(documentId) { abstractFunction('historyStatus'); }
 }
