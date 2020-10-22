@@ -71,7 +71,7 @@ export function findSVGAtPoint(x, y) {
  *
  * @param {Number} x The x coordinate of the point
  * @param {Number} y The y coordinate of the point
- * @return {Element} The annotation element or null if one can't be found
+ * @return {Element|null} The annotation element or null if one can't be found
  */
 export function findAnnotationAtPoint(x, y) {
   // let el = null;
