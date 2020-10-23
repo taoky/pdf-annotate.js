@@ -65,7 +65,7 @@ function render() {
     }
 
     UI.renderPage(1, RENDER_OPTIONS).then(([pdfPage, annotations]) => {
-      let viewport = pdfPage.getViewport({scale: RENDER_OPTIONS.scale, rotation: RENDER_OPTIONS.rotate});
+      let viewport = pdfPage.getViewport({ scale: RENDER_OPTIONS.scale, rotation: RENDER_OPTIONS.rotate });
       PAGE_HEIGHT = viewport.height;
     });
   });
@@ -393,7 +393,7 @@ render();
 // Clear toolbar button
 (function() {
   function handleClearClick(e) {
-    if (confirm('Are you sure you want to clear annotations?')) {
+    if (window.confirm('Are you sure you want to clear annotations?')) {
       for (let i = 0; i < NUM_PAGES; i++) {
         document.querySelector(`div#pageContainer${i + 1} svg.annotationLayer`).innerHTML = '';
       }
@@ -402,6 +402,33 @@ render();
     }
   }
   document.querySelector('a.clear').addEventListener('click', handleClearClick);
+})();
+
+(function() {
+  function handleHistory(e) {
+    let type = e.target.getAttribute('data-tooltype');
+    if (type === 'undo') {
+      PDFJSAnnotate.getStoreAdapter().undo(RENDER_OPTIONS.documentId);
+      for (let i = 1; i <= NUM_PAGES; i += 1) {
+        UI.rerenderAnnotations(i, RENDER_OPTIONS);
+      }
+    }
+    else if (type === 'redo') {
+      PDFJSAnnotate.getStoreAdapter().redo(RENDER_OPTIONS.documentId);
+      for (let i = 1; i <= NUM_PAGES; i += 1) {
+        UI.rerenderAnnotations(i, RENDER_OPTIONS);
+      }
+    }
+    else if (type === 'clear_history') {
+      if (window.confirm('Clear history? This operation cannot be undone.')) {
+        PDFJSAnnotate.getStoreAdapter().undo(RENDER_OPTIONS.documentId);
+      }
+    }
+  }
+
+  document.querySelector('a.undo').addEventListener('click', handleHistory);
+  document.querySelector('a.redo').addEventListener('click', handleHistory);
+  document.querySelector('a.clear_history').addEventListener('click', handleHistory);
 })();
 
 // Comment stuff
@@ -455,7 +482,7 @@ render();
       commentForm.style.display = 'none';
       commentForm.onsubmit = null;
 
-      insertComment({content: 'No comments'});
+      insertComment({ content: 'No comments' });
     }
   }
 

@@ -218,6 +218,7 @@ function updateAnnotations(documentId, annotations, history = null) {
     let idx = history[documentId]['idx'];
     history[documentId]['record'][idx + 1] = annotations;
     history[documentId]['idx'] = idx + 1;
+    history[documentId]['record'].length = idx + 2;
     console.log(history);
   }
   localStorage.setItem(`${documentId}/annotations`, JSON.stringify(annotations));
