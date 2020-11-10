@@ -119,7 +119,7 @@ export default class LocalStoreAdapter extends StoreAdapter {
         let annotations = getAnnotations(documentId);
         resolve(annotations);
       });
-    }
+    };
 
     this.undo = (documentId) => {
       return new Promise((resolve, reject) => {
