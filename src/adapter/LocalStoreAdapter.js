@@ -114,7 +114,12 @@ export default class LocalStoreAdapter extends StoreAdapter {
       });
     };
 
-    this.getAllAnnotations = getAnnotations;
+    this.getAllAnnotations = (documentId) => {
+      return new Promise((resolve, reject) => {
+        let annotations = getAnnotations(documentId);
+        resolve(annotations);
+      });
+    }
 
     this.undo = (documentId) => {
       return new Promise((resolve, reject) => {
