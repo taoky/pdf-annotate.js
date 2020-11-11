@@ -53,3 +53,4 @@ document.addEventListener('click', function handleDocumentClick(e) {
 export function fireEvent() { emitter.emit(...arguments); };
 export function addEventListener() { emitter.on(...arguments); };
 export function removeEventListener() { emitter.removeListener(...arguments); };
+export function removeAllEventListener() { emitter.removeAllListeners(...arguments); };
