@@ -1,4 +1,4 @@
-import { addEventListener, removeEventListener, fireEvent } from './event';
+import { addEventListener, removeEventListener, fireEvent, removeAllEventListener } from './event';
 import { disableEdit, enableEdit } from './edit';
 import { disablePen, enablePen, setPen } from './pen';
 import { disableArrow, enableArrow, setArrow } from './arrow';
@@ -13,6 +13,7 @@ export default {
   addEventListener,
   removeEventListener,
   fireEvent,
+  removeAllEventListener,
 
   disableEdit,
   enableEdit,
