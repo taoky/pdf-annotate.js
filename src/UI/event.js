@@ -7,6 +7,7 @@ import {
 const emitter = new EventEmitter();
 
 let clickNode;
+let _enabled = true;
 
 /**
  * Handle document.click event
@@ -14,6 +15,10 @@ let clickNode;
  * @param {Event} e The DOM event to be handled
  */
 document.addEventListener('click', function handleDocumentClick(e) {
+  if (!_enabled) {
+    return;
+  }
+
   if (!findSVGAtPoint(e.clientX, e.clientY)) {
     return;
   }
@@ -54,3 +59,9 @@ export function fireEvent() { emitter.emit(...arguments); };
 export function addEventListener() { emitter.on(...arguments); };
 export function removeEventListener() { emitter.removeListener(...arguments); };
 export function removeAllEventListener() { emitter.removeAllListeners(...arguments); };
+export function enableUI() {
+  _enabled = true;
+}
+export function disableUI() {
+  _enabled = false;
+}
