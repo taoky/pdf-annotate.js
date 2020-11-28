@@ -27,7 +27,7 @@ const OVERLAY_BORDER_SIZE = 3;
  *
  * @param {Element} target The annotation element to apply overlay for
  */
-function createEditOverlay(target) {
+export function createEditOverlay(target) {
   destroyEditOverlay();
   overlay = document.createElement('div');
   let anchor = document.createElement('a');

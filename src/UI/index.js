@@ -1,5 +1,5 @@
 import { addEventListener, removeEventListener, fireEvent, removeAllEventListener, enableUI, disableUI } from './event';
-import { disableEdit, enableEdit } from './edit';
+import { disableEdit, enableEdit, createEditOverlay } from './edit';
 import { disablePen, enablePen, setPen } from './pen';
 import { disableArrow, enableArrow, setArrow } from './arrow';
 import { disableEraser, enableEraser } from './eraser';
@@ -19,6 +19,7 @@ export default {
 
   disableEdit,
   enableEdit,
+  createEditOverlay,
 
   disablePen,
   enablePen,
