@@ -92,7 +92,7 @@ export function createEditOverlay(target) {
 /**
  * Destroy the edit overlay if it exists.
  */
-function destroyEditOverlay() {
+export function destroyEditOverlay() {
   if (overlay) {
     overlay.parentNode.removeChild(overlay);
     overlay = null;
