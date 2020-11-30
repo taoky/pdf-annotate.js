@@ -51,6 +51,13 @@ export function findSVGContainer(node) {
 export function findSVGAtPoint(x, y) {
   let elements = document.querySelectorAll('svg[data-pdf-annotate-container="true"]');
 
+  let pointElements = document.elementsFromPoint(x, y);
+  for (let i = 0, l = pointElements.length; i < l; i++) {
+    if (pointElements[i].classList.contains('no-annotation')) {
+      return;
+    }
+  }
+
   for (let i = 0, l = elements.length; i < l; i++) {
     let el = elements[i];
     let rect = el.getBoundingClientRect();
