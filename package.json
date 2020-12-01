@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Submitty/pdf-annotate.js.git"
+    "url": "git+https://github.com/taoky/pdf-annotate.js.git"
   },
   "keywords": [
     "pdf",
@@ -33,9 +33,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Submitty/pdf-annotate.js/issues"
+    "url": "https://github.com/taoky/pdf-annotate.js/issues"
   },
-  "homepage": "https://github.com/Submitty/pdf-annotate.js#readme",
+  "homepage": "https://github.com/taoky/pdf-annotate.js#readme",
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",

@@ -51,6 +51,8 @@ See [/web](https://github.com/taoky/pdf-annotate.js/tree/master/web) for an exam
 
 ## Developing
 
+Although `pdf-annotate.js` has no features relying on specific operating system, it can only be built in Unix-like systems now.
+
 ```bash
 # clone the repo
 $ git clone https://github.com/taoky/pdf-annotate.js.git
