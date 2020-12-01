@@ -303,6 +303,9 @@ render();
         case 'fillcircle':
           UI.disableCircle();
           break;
+        case 'select':
+          UI.enableUI();
+          break;
       }
     }
 
@@ -343,6 +346,8 @@ render();
       case 'fillcircle':
         UI.enableCircle(type);
         break;
+      case 'select':
+        UI.disableUI();
     }
   }
 
@@ -377,10 +382,12 @@ render();
   }
 
   function handleRotateCWClick() {
+    console.warn("Rotate No tested!");
     setScaleRotate(RENDER_OPTIONS.scale, RENDER_OPTIONS.rotate + 90);
   }
 
   function handleRotateCCWClick() {
+    console.warn("Rotate No tested!");
     setScaleRotate(RENDER_OPTIONS.scale, RENDER_OPTIONS.rotate - 90);
   }
 

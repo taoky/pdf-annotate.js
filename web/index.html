@@ -83,8 +83,9 @@
   </style>
 </head>
 <body>
-  <div class="toolbar">
+  <div class="toolbar no-annotation">
     <button class="cursor" type="button" title="Cursor" data-tooltype="cursor">➚</button>
+    <button className="select-text" type="button" title="Select Text" data-tooltype="select">I</button>
     <button class="eraser" type="button" title="Eraser" data-tooltype="eraser">⌫</button>
 
     <div class="spacer"></div>
@@ -140,7 +141,7 @@
   <div id="content-wrapper">
     <div id="viewer" class="pdfViewer"></div>
   </div>
-  <div id="comment-wrapper">
+  <div id="comment-wrapper" class="no-annotation">
     <h4>Comments</h4>
     <div class="comment-list">
       <div class="comment-list-container">

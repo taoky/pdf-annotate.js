@@ -1,5 +1,5 @@
 {
-  "name": "@submitty/pdf-annotate.js",
+  "name": "@taoky/pdf-annotate.js",
   "version": "2.2.2",
   "description": "Annotation layer for pdf.js",
   "main": "index.js",
