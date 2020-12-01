@@ -1,7 +1,7 @@
 # pdf-annotate.js
 
 [![Build Status](https://github.com/taoky/pdf-annotate.js/workflows/Test/badge.svg?branch=master&event=push)](https://github.com/taoky/pdf-annotate.js/actions?query=workflow%3ATest+event%3Apush+branch%3Amaster)
-[![codecov](https://codecov.io/gh/Submitty/pdf-annotate.js/branch/master/graph/badge.svg)](https://codecov.io/gh/Submitty/pdf-annotate.js)
+[![codecov](https://codecov.io/gh/taoky/pdf-annotate.js/branch/master/graph/badge.svg)](https://codecov.io/gh/taoky/pdf-annotate.js)
 
 Annotation layer for [PDF.js](https://github.com/mozilla/pdf.js).
 
