@@ -165,7 +165,7 @@ export default class LocalStoreAdapter extends StoreAdapter {
 
     this.clearHistory = (documentId) => {
       return new Promise((resolve, reject) => {
-        history[documentId] = {
+        this.history[documentId] = {
           'record': [],
           'idx': 0
         };
