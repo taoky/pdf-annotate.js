@@ -5,7 +5,8 @@ import {
   enableUserSelect,
   findSVGAtPoint,
   getMetadata,
-  convertToSvgPoint
+  convertToSvgPoint,
+  isInForbiddenArea
 } from './utils';
 
 let _enabled = false;
@@ -23,6 +24,9 @@ function handleDocumentPointerdown(e) {
   path = null;
   lines = [];
   _candraw = true;
+  if (isInForbiddenArea(e.x, e.y)) {
+    return;
+  }
   /* if (!e.srcElement.classList.contains('annotationLayer')) {
     return;
   } */

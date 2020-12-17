@@ -42,6 +42,22 @@ export function findSVGContainer(node) {
 }
 
 /**
+ * Find whether x, y are in 'no-annotation' area.
+ * @param {Number} x The x coordinate of the point
+ * @param {Number} y The y coordinate of the point
+ * @returns {Boolean} Whether in the forbidden area
+ */
+export function isInForbiddenArea(x, y) {
+  let pointElements = document.elementsFromPoint(x, y);
+  for (let i = 0, l = pointElements.length; i < l; i++) {
+    if (pointElements[i].classList.contains('no-annotation')) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
  * Find an SVGElement container at a given point
  *
  * @param {Number} x The x coordinate of the point
@@ -51,11 +67,8 @@ export function findSVGContainer(node) {
 export function findSVGAtPoint(x, y) {
   let elements = document.querySelectorAll('svg[data-pdf-annotate-container="true"]');
 
-  let pointElements = document.elementsFromPoint(x, y);
-  for (let i = 0, l = pointElements.length; i < l; i++) {
-    if (pointElements[i].classList.contains('no-annotation')) {
-      return;
-    }
+  if (isInForbiddenArea(x, y)) {
+    return;
   }
 
   for (let i = 0, l = elements.length; i < l; i++) {
