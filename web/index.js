@@ -415,20 +415,22 @@ render();
   function handleHistory(e) {
     let type = e.target.getAttribute('data-tooltype');
     if (type === 'undo') {
-      PDFJSAnnotate.getStoreAdapter().undo(RENDER_OPTIONS.documentId);
-      for (let i = 1; i <= NUM_PAGES; i += 1) {
-        UI.rerenderAnnotations(i, RENDER_OPTIONS);
-      }
+      PDFJSAnnotate.getStoreAdapter().undo(RENDER_OPTIONS.documentId).then(() => {
+        for (let i = 1; i <= NUM_PAGES; i += 1) {
+          UI.rerenderAnnotations(i, RENDER_OPTIONS);
+        }
+      });
     }
     else if (type === 'redo') {
-      PDFJSAnnotate.getStoreAdapter().redo(RENDER_OPTIONS.documentId);
-      for (let i = 1; i <= NUM_PAGES; i += 1) {
-        UI.rerenderAnnotations(i, RENDER_OPTIONS);
-      }
+      PDFJSAnnotate.getStoreAdapter().redo(RENDER_OPTIONS.documentId).then(() => {
+        for (let i = 1; i <= NUM_PAGES; i += 1) {
+          UI.rerenderAnnotations(i, RENDER_OPTIONS);
+        }
+      });
     }
     else if (type === 'clear_history') {
       if (window.confirm('Clear history? This operation cannot be undone.')) {
-        PDFJSAnnotate.getStoreAdapter().undo(RENDER_OPTIONS.documentId);
+        PDFJSAnnotate.getStoreAdapter().clearHistory(RENDER_OPTIONS.documentId);
       }
     }
   }
