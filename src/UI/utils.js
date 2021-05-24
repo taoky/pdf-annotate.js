@@ -135,6 +135,7 @@ export function pointIntersectsRect(x, y, rect) {
  * Get the rect of an annotation element accounting for offset.
  *
  * @param {Element} el The element to get the rect of
+ * @param {Boolean} offset Handling offset in this function or not
  * @return {Object} The dimensions of the element
  */
 export function getOffsetAnnotationRect(el, offset = false) {
@@ -305,6 +306,7 @@ export function enableUserSelect() {
  * Get the metadata for a SVG container
  *
  * @param {SVGElement} svg The SVG container to get metadata for
+ * @returns {Object} Metadata (Document ID, Page num & viewport info)
  */
 export function getMetadata(svg) {
   return {

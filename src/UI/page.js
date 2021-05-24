@@ -27,7 +27,7 @@ function getGlobalEventBus(dispatchToDOM = false) {
  * Create a new page to be appended to the DOM.
  *
  * @param {Number} pageNumber The page number that is being created
- * @return {HTMLElement}
+ * @return {HTMLElement} The page container element
  */
 export function createPage(pageNumber) {
   let temp = document.createElement('div');

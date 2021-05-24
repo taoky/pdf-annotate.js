@@ -13,7 +13,7 @@ const isFirefox = /firefox/i.test(navigator.userAgent);
  * based on the rotation of the viewport.
  *
  * @param {Object} viewport The viewport data from the page
- * @return {Object}
+ * @return {Object} The coordinate after rotation (translation)
  */
 export function getTranslation(viewport) {
   let x;
@@ -47,7 +47,7 @@ export function getTranslation(viewport) {
  *
  * @param {Node} node The node to be transformed
  * @param {Object} viewport The page's viewport data
- * @return {Node}
+ * @return {Node} The node after transformation
  */
 function transform(node, viewport) {
   let trans = getTranslation(viewport);

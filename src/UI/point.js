@@ -13,7 +13,7 @@ let input;
 /**
  * Handle document.mouseup event
  *
- * @param {Event} The DOM event to be handled
+ * @param {Event} e The DOM event to be handled
  */
 function handleDocumentMouseup(e) {
   if (input || !findSVGAtPoint(e.clientX, e.clientY)) {

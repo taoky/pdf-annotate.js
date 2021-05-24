@@ -208,6 +208,8 @@ function saveRect(type, rects, color) {
 
 /**
  * Enable rect behavior
+ *
+ * @param {String} type The selected tool type
  */
 export function enableRect(type) {
   _type = type;
