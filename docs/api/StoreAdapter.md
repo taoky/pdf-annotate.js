@@ -2,6 +2,8 @@
 
 The `StoreAdapter` is an abstract class that will need to be implemented for fetching annotation data. An unimplemented instance of `StoreAdapter` is used as the default adapter. Any call to an umimplemented adapter will result in an `Error` being thrown.
 
+**TODO: Add undo/redo/clear history interface**
+
 __Usage__
 
 ```js

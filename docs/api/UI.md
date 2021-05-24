@@ -2,6 +2,8 @@
 
 `UI` is the object that enables user interactions for management of annotations in the browser
 
+**TODO: Add enableUI, disableUI, rerenderAnnotations**
+
 __Table of Contents__
 
 - [addEventListener()](#addeventlistener)

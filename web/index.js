@@ -73,68 +73,68 @@ function render() {
 render();
 
 // Hotspot color stuff
-(function() {
-  let hotspotColor = localStorage.getItem(`${RENDER_OPTIONS.documentId}/hotspot/color`) || 'darkgoldenrod';
-  let currentTarget;
+// (function() {
+//   let hotspotColor = localStorage.getItem(`${RENDER_OPTIONS.documentId}/hotspot/color`) || 'darkgoldenrod';
+//   let currentTarget;
 
-  function handleAnnotationClick(target) {
-    let type = target.getAttribute('data-pdf-annotate-type');
-    if (['fillcircle', 'arrow'].indexOf(type) === -1) {
-      return; // nothing to do
-    }
-    currentTarget = target;
-    hotspotColor = currentTarget.getAttribute('stroke');
+//   function handleAnnotationClick(target) {
+//     let type = target.getAttribute('data-pdf-annotate-type');
+//     if (['fillcircle', 'arrow'].indexOf(type) === -1) {
+//       return; // nothing to do
+//     }
+//     currentTarget = target;
+//     hotspotColor = currentTarget.getAttribute('stroke');
 
-    UI.setArrow(10, hotspotColor);
-    UI.setCircle(10, hotspotColor);
+//     UI.setArrow(10, hotspotColor);
+//     UI.setCircle(10, hotspotColor);
 
-    let a = document.querySelector('.hotspot-color .color');
-    if (a) {
-      a.setAttribute('data-color', hotspotColor);
-      a.style.background = hotspotColor;
-    }
-  }
+//     let a = document.querySelector('.hotspot-color .color');
+//     if (a) {
+//       a.setAttribute('data-color', hotspotColor);
+//       a.style.background = hotspotColor;
+//     }
+//   }
 
-  function handleAnnotationBlur(target) {
-    if (currentTarget === target) {
-      currentTarget = undefined;
-    }
-  }
+//   function handleAnnotationBlur(target) {
+//     if (currentTarget === target) {
+//       currentTarget = undefined;
+//     }
+//   }
 
-  initColorPicker(document.querySelector('.hotspot-color'), hotspotColor, function(value) {
-    if (value === hotspotColor) {
-      return; // nothing to do
-    }
-    localStorage.setItem(`${RENDER_OPTIONS.documentId}/hotspot/color`, value);
-    hotspotColor = value;
+//   // initColorPicker(document.querySelector('.hotspot-color'), hotspotColor, function(value) {
+//   //   if (value === hotspotColor) {
+//   //     return; // nothing to do
+//   //   }
+//   //   localStorage.setItem(`${RENDER_OPTIONS.documentId}/hotspot/color`, value);
+//   //   hotspotColor = value;
 
-    UI.setArrow(10, hotspotColor);
-    UI.setCircle(10, hotspotColor);
+//   //   UI.setArrow(10, hotspotColor);
+//   //   UI.setCircle(10, hotspotColor);
 
-    if (!currentTarget) {
-      return; // nothing to do
-    }
+//   //   if (!currentTarget) {
+//   //     return; // nothing to do
+//   //   }
 
-    let type = currentTarget.getAttribute('data-pdf-annotate-type');
-    let annotationId = currentTarget.getAttribute('data-pdf-annotate-id');
-    if (['fillcircle', 'arrow'].indexOf(type) === -1) {
-      return; // nothing to do
-    }
+//   //   let type = currentTarget.getAttribute('data-pdf-annotate-type');
+//   //   let annotationId = currentTarget.getAttribute('data-pdf-annotate-id');
+//   //   if (['fillcircle', 'arrow'].indexOf(type) === -1) {
+//   //     return; // nothing to do
+//   //   }
 
-    // update target
-    currentTarget.setAttribute('stroke', hotspotColor);
-    currentTarget.setAttribute('fill', hotspotColor);
+//   //   // update target
+//   //   currentTarget.setAttribute('stroke', hotspotColor);
+//   //   currentTarget.setAttribute('fill', hotspotColor);
 
-    // update annotation
-    PDFJSAnnotate.getStoreAdapter().getAnnotation(documentId, annotationId).then((annotation) => {
-      annotation.color = hotspotColor;
-      PDFJSAnnotate.getStoreAdapter().editAnnotation(documentId, annotationId, annotation);
-    });
-  });
+//   //   // update annotation
+//   //   PDFJSAnnotate.getStoreAdapter().getAnnotation(documentId, annotationId).then((annotation) => {
+//   //     annotation.color = hotspotColor;
+//   //     PDFJSAnnotate.getStoreAdapter().editAnnotation(documentId, annotationId, annotation);
+//   //   });
+//   // });
 
-  UI.addEventListener('annotation:click', handleAnnotationClick);
-  UI.addEventListener('annotation:blur', handleAnnotationBlur);
-})();
+//   UI.addEventListener('annotation:click', handleAnnotationClick);
+//   UI.addEventListener('annotation:blur', handleAnnotationBlur);
+// })();
 
 // Text stuff
 (function() {
@@ -381,20 +381,20 @@ render();
     setScaleRotate(e.target.value, RENDER_OPTIONS.rotate);
   }
 
-  function handleRotateCWClick() {
-    console.warn('Rotate No tested!');
-    setScaleRotate(RENDER_OPTIONS.scale, RENDER_OPTIONS.rotate + 90);
-  }
+  // function handleRotateCWClick() {
+  //   console.warn('Rotate No tested!');
+  //   setScaleRotate(RENDER_OPTIONS.scale, RENDER_OPTIONS.rotate + 90);
+  // }
 
-  function handleRotateCCWClick() {
-    console.warn('Rotate No tested!');
-    setScaleRotate(RENDER_OPTIONS.scale, RENDER_OPTIONS.rotate - 90);
-  }
+  // function handleRotateCCWClick() {
+  //   console.warn('Rotate No tested!');
+  //   setScaleRotate(RENDER_OPTIONS.scale, RENDER_OPTIONS.rotate - 90);
+  // }
 
   document.querySelector('.toolbar select.scale').value = RENDER_OPTIONS.scale;
   document.querySelector('.toolbar select.scale').addEventListener('change', handleScaleChange);
-  document.querySelector('.toolbar .rotate-ccw').addEventListener('click', handleRotateCCWClick);
-  document.querySelector('.toolbar .rotate-cw').addEventListener('click', handleRotateCWClick);
+  // document.querySelector('.toolbar .rotate-ccw').addEventListener('click', handleRotateCCWClick);
+  // document.querySelector('.toolbar .rotate-cw').addEventListener('click', handleRotateCWClick);
 })();
 
 // Clear toolbar button
@@ -406,6 +406,7 @@ render();
       }
 
       localStorage.removeItem(`${RENDER_OPTIONS.documentId}/annotations`);
+      PDFJSAnnotate.getStoreAdapter().clearHistory(RENDER_OPTIONS.documentId);
     }
   }
   document.querySelector('a.clear').addEventListener('click', handleClearClick);
@@ -437,7 +438,7 @@ render();
 
   document.querySelector('a.undo').addEventListener('click', handleHistory);
   document.querySelector('a.redo').addEventListener('click', handleHistory);
-  document.querySelector('a.clear_history').addEventListener('click', handleHistory);
+  // document.querySelector('a.clear_history').addEventListener('click', handleHistory);
 })();
 
 // Comment stuff
