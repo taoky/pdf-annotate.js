@@ -18,6 +18,7 @@ jobs:
         npm run web-build
         : > web-dist/.nojekyll
     - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/master'
       run: |
         CINFO="$(git log -1 --pretty="%an: [%h] %s")"
         git clone --depth=1 --branch=gh-pages --single-branch --no-checkout \
