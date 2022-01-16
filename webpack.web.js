@@ -10,6 +10,12 @@ module.exports = {
     publicPath: '/__compiled__/'
   },
 
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'web')
+    }
+  },
+
   module: {
     rules: [
       {

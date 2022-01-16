@@ -4,4 +4,4 @@
 cp -rf shared/ web/shared/
 
 server=./node_modules/.bin/webpack-dev-server
-$server --inline --config ./webpack.web.js --content-base web/
+$server --config ./webpack.web.js
