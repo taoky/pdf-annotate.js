@@ -4,3 +4,4 @@ shared/pdf.js
 shared/pdf.worker.js
 web/shared/
 web-dist/
+dist/

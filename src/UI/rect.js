@@ -7,7 +7,8 @@ import {
   enableUserSelect,
   findSVGAtPoint,
   getMetadata,
-  convertToSvgRect
+  convertToSvgRect,
+  isInForbiddenArea
 } from './utils';
 
 let _enabled = false;
@@ -90,6 +91,9 @@ function handleDocumentMousemove(e) {
  */
 function handleDocumentMouseup(e) {
   let rects;
+  if (isInForbiddenArea(e.clientX, e.clientY)) {
+    return;
+  }
   if (_type !== 'area' && (rects = getSelectionRects())) {
     saveRect(_type, [...rects].map((r) => {
       return {
