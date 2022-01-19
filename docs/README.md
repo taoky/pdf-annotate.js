@@ -21,24 +21,27 @@ Original docs: <https://github.com/Submitty/pdf-annotate.js/tree/master/docs>
 ### Features
 
 (Probably) working:
+
 - Basic cursor (Annotation selection, text selection, annotation eraser)
 - Highlight & Strikeout on text
 - Rectangle, text, draw and point (comment) annotation
   - Only draw & text color supported
   - "Draw" not tested on touch device
+  - Func of moving text, draw and point annotations is fixed and working now.
 - Scale
 - Undo/Redo/Clear all annotations
 - Local Storage (LocalStoreAdapter)
 
 Not tested:
+
 - A11y
 - Other not mentioned annotations
   - Like circle, arrow, etc.
+- LocalUserStoreAdapter (undo/redo functionalities added but never tested)
 
 (Probably) Broken:
-- LocalUserStoreAdapter (No support for undo/redo, etc)
+
 - Rotate
-- Moving pen annotation when selecting it
 
 ### An example of integrating to React
 

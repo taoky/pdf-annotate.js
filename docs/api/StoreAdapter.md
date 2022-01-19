@@ -4,55 +4,71 @@ The `StoreAdapter` is an abstract class that will need to be implemented for fet
 
 **TODO: Add undo/redo/clear history interface**
 
-__Usage__
+**Usage**
 
 ```js
 let MyStoreAdapter = new PDFJSAnnotate.StoreAdapter({
-  getAnnotations(documentId, pageNumber) {/* ... */},
+  getAnnotations(documentId, pageNumber) {
+    /* ... */
+  },
 
-  getAnnotation(documentId, annotationId) {/* ... */},
+  getAnnotation(documentId, annotationId) {
+    /* ... */
+  },
 
-  addAnnotation(documentId, pageNumber, annotation) {/* ... */},
+  addAnnotation(documentId, pageNumber, annotation) {
+    /* ... */
+  },
 
-  editAnnotation(documentId, pageNumber, annotation) {/* ... */},
+  editAnnotation(documentId, pageNumber, annotation) {
+    /* ... */
+  },
 
-  deleteAnnotation(documentId, annotationId) {/* ... */},
-  
-  addComment(documentId, annotationId, content) {/* ... */},
+  deleteAnnotation(documentId, annotationId) {
+    /* ... */
+  },
 
-  deleteComment(documentId, commentId) {/* ... */}
+  addComment(documentId, annotationId, content) {
+    /* ... */
+  },
+
+  deleteComment(documentId, commentId) {
+    /* ... */
+  },
 });
 ```
 
-__Table of Contents__
+**Table of Contents**
 
-- [getAnnotations()](#getannotations)
-- [getAnnotation()](#getannotation)
-- [addAnnotation()](#addannotation)
-- [editAnnotation()](#editannotation)
-- [deleteAnnotation()](#deleteannotation)
-- [addComment()](#addcomment)
-- [deleteComment()](#deletecomment)
+- [StoreAdapter](#storeadapter)
+  - [`getAnnotations()`](#getannotations)
+  - [`getAnnotation()`](#getannotation)
+  - [`addAnnotation()`](#addannotation)
+  - [`editAnnotation()`](#editannotation)
+  - [`deleteAnnotation()`](#deleteannotation)
+  - [`addComment()`](#addcomment)
+  - [`deleteComment()`](#deletecomment)
 
 ---
 
 ### `getAnnotations()`
+
 Get all the annotations for a specific page within a document
 
-__Syntax__
+**Syntax**
 
 ```js
-let promise = adapter.getAnnotations(documentId, pageNumber)
+let promise = adapter.getAnnotations(documentId, pageNumber);
 ```
 
-__Parameters__
+**Parameters**
 
-| parameter | description |
-|---|---|
-| `documentId` | The ID of the document |
+| parameter    | description                         |
+| ------------ | ----------------------------------- |
+| `documentId` | The ID of the document              |
 | `pageNumber` | The page number within the document |
 
-__Returns__
+**Returns**
 
 `Promise`
 
@@ -63,42 +79,47 @@ A settled Promise will be either:
 
 The fulfilled object will contain the following properties:
 
-| property | description |
-|---|---|
-| `documentId` | `String` The ID of the document |
-| `pageNumer` | `Number` The page number within the document |
-| `annotations` | `Array` The annotations for the page |
+| property      | description                                  |
+| ------------- | -------------------------------------------- |
+| `documentId`  | `String` The ID of the document              |
+| `pageNumer`   | `Number` The page number within the document |
+| `annotations` | `Array` The annotations for the page         |
 
-__Usage__
+**Usage**
 
 ```js
-PDFJSAnnotate.getStoreAdapter().getAnnotations('example.pdf', 1)
-  .then((data) => {
-    console.log(data.documentId); // "example.pdf"
-    console.log(data.pageNumber); // 1
-    console.log(data.annotations); // Array
-  }, (error) => {
-    console.log(error.message);
-  });
+PDFJSAnnotate.getStoreAdapter()
+  .getAnnotations("example.pdf", 1)
+  .then(
+    (data) => {
+      console.log(data.documentId); // "example.pdf"
+      console.log(data.pageNumber); // 1
+      console.log(data.annotations); // Array
+    },
+    (error) => {
+      console.log(error.message);
+    }
+  );
 ```
 
 ### `getAnnotation()`
+
 Get a specific annotation
 
-__Syntax__
+**Syntax**
 
 ```js
-let promise = adapter.getAnnotation(documentId, annotationId)
+let promise = adapter.getAnnotation(documentId, annotationId);
 ```
 
-__Parameters__
+**Parameters**
 
-| parameter | description |
-|---|---|
-| `documentId` | The ID of the document |
+| parameter      | description              |
+| -------------- | ------------------------ |
+| `documentId`   | The ID of the document   |
 | `annotationId` | The ID of the annotation |
 
-__Returns__
+**Returns**
 
 `Promise`
 
@@ -107,38 +128,40 @@ A settled Promise will be either:
 - fulfilled: `Object` The annotation
 - rejected: `Error`
 
-__Usage__
+**Usage**
 
 ```js
-PDFJSAnnotate.getStoreAdapter().getAnnotation(
-    'example.pdf',
-    'ef158e68-c54c-4c4d-b10c-7bc8c0c7fe7c'
-  ).then((annotation) => {
-    console.log(annotation); // Object
-  }, (error) => {
-    console.log(error.message);
-  });
+PDFJSAnnotate.getStoreAdapter()
+  .getAnnotation("example.pdf", "ef158e68-c54c-4c4d-b10c-7bc8c0c7fe7c")
+  .then(
+    (annotation) => {
+      console.log(annotation); // Object
+    },
+    (error) => {
+      console.log(error.message);
+    }
+  );
 ```
-
 
 ### `addAnnotation()`
+
 Add an annotation to a document
 
-__Syntax__
+**Syntax**
 
 ```js
-let promise = adapter.addAnnotation(documentId, pageNumber, annotation)
+let promise = adapter.addAnnotation(documentId, pageNumber, annotation);
 ```
 
-__Parameters__
+**Parameters**
 
-| parameter | description |
-|---|---|
-| `documentId` | The ID of the document |
-| `pageNumber` | The page number within the document |
+| parameter    | description                            |
+| ------------ | -------------------------------------- |
+| `documentId` | The ID of the document                 |
+| `pageNumber` | The page number within the document    |
 | `annotation` | The JSON definition for the annotation |
 
-__Returns__
+**Returns**
 
 `Promise`
 
@@ -147,45 +170,46 @@ A settled Promise will be either:
 - fulfilled: `Object` The newly added annotation
 - rejected: `Error`
 
-__Usage__
+**Usage**
 
 ```js
-PDFJSAnnotate.getStoreAdapter().addAnnotation(
-    'example.pdf',
-    1,
-    {
-      type: 'area',
-      width: 100,
-      height: 50,
-      x: 75,
-      y: 75
+PDFJSAnnotate.getStoreAdapter()
+  .addAnnotation("example.pdf", 1, {
+    type: "area",
+    width: 100,
+    height: 50,
+    x: 75,
+    y: 75,
+  })
+  .then(
+    (annotation) => {
+      console.log(annotation); // Object
+    },
+    (error) => {
+      console.log(error.message);
     }
-  ).then((annotation) => {
-    console.log(annotation); // Object
-  }, (error) => {
-    console.log(error.message);
-  });
+  );
 ```
-
 
 ### `editAnnotation()`
+
 Edit an annotation
 
-__Syntax__
+**Syntax**
 
 ```js
-let promise = adapter.editAnnotation(documentId, pageNumber, annotation)
+let promise = adapter.editAnnotation(documentId, pageNumber, annotation);
 ```
 
-__Parameters__
+**Parameters**
 
-| parameter | description |
-|---|---|
-| `documentId` | The ID of the document |
-| `pageNumber` | The page number within the document |
+| parameter    | description                            |
+| ------------ | -------------------------------------- |
+| `documentId` | The ID of the document                 |
+| `pageNumber` | The page number within the document    |
 | `annotation` | The JSON definition for the annotation |
 
-__Returns__
+**Returns**
 
 `Promise`
 
@@ -194,45 +218,46 @@ A settled Promise will be either:
 - fulfilled: `Object` The updated annotation
 - rejected: `Error`
 
-__Usage__
+**Usage**
 
 ```js
-PDFJSAnnotate.getStoreAdapter().editAnnotation(
-    'example.pdf',
-    1,
-    {
-      uuid: 'ef158e68-c54c-4c4d-b10c-7bc8c0c7fe7c',
-      type: 'area',
-      width: 100,
-      height: 50,
-      x: 250,
-      y: 100
+PDFJSAnnotate.getStoreAdapter()
+  .editAnnotation("example.pdf", 1, {
+    uuid: "ef158e68-c54c-4c4d-b10c-7bc8c0c7fe7c",
+    type: "area",
+    width: 100,
+    height: 50,
+    x: 250,
+    y: 100,
+  })
+  .then(
+    (annotation) => {
+      console.log(annotation); // Object
+    },
+    (error) => {
+      console.log(error.message);
     }
-  ).then((annotation) => {
-    console.log(annotation); // Object
-  }, (error) => {
-    console.log(error.message);
-  });
+  );
 ```
-
 
 ### `deleteAnnotation()`
+
 Delete an annotation
 
-__Syntax__
+**Syntax**
 
 ```js
-let promise = adapter.deleteAnnotation(documentId, annotationId)
+let promise = adapter.deleteAnnotation(documentId, annotationId);
 ```
 
-__Parameters__
+**Parameters**
 
-| parameter | description |
-|---|---|
-| `documentId` | The ID of the document |
+| parameter      | description              |
+| -------------- | ------------------------ |
+| `documentId`   | The ID of the document   |
 | `annotationId` | The ID of the annotation |
 
-__Returns__
+**Returns**
 
 `Promise`
 
@@ -241,37 +266,40 @@ A settled Promise will be either:
 - fulfilled: `Boolean`
 - rejected: `Error`
 
-__Usage__
+**Usage**
 
 ```js
-PDFJSAnnotate.getStoreAdapter().deleteAnnotation(
-    'example.pdf',
-    'ef158e68-c54c-4c4d-b10c-7bc8c0c7fe7c'
-  ).then(() => {
-    console.log('deleted');
-  }, (error) => {
-    console.log(error.message);
-  });
+PDFJSAnnotate.getStoreAdapter()
+  .deleteAnnotation("example.pdf", "ef158e68-c54c-4c4d-b10c-7bc8c0c7fe7c")
+  .then(
+    () => {
+      console.log("deleted");
+    },
+    (error) => {
+      console.log(error.message);
+    }
+  );
 ```
 
 ### `addComment()`
+
 Add a comment to an annotation
 
-__Syntax__
+**Syntax**
 
 ```js
-let promise = adapter.addComment(documentId, annotationId, content)
+let promise = adapter.addComment(documentId, annotationId, content);
 ```
 
-__Parameters__
+**Parameters**
 
-| parameter | description |
-|---|---|
-| `documentId` | The ID of the document |
-| `annotationId` | The ID of the annotation |
-| `content` | The content of the comment |
+| parameter      | description                |
+| -------------- | -------------------------- |
+| `documentId`   | The ID of the document     |
+| `annotationId` | The ID of the annotation   |
+| `content`      | The content of the comment |
 
-__Returns__
+**Returns**
 
 `Promise`
 
@@ -280,38 +308,43 @@ A settled Promise will be either:
 - fulfilled: `Object` The newly added comment
 - rejected: `Error`
 
-__Usage__
+**Usage**
 
 ```js
-PDFJSAnnotate.getStoreAdapter().addComment(
-    'example.pdf',
-    'ef158e68-c54c-4c4d-b10c-7bc8c0c7fe7c',
-    'Hello world!'
-  ).then((comment) => {
-    console.log(comment); // Object
-  }, (error) => {
-    console.log(error.message);
-  });
+PDFJSAnnotate.getStoreAdapter()
+  .addComment(
+    "example.pdf",
+    "ef158e68-c54c-4c4d-b10c-7bc8c0c7fe7c",
+    "Hello world!"
+  )
+  .then(
+    (comment) => {
+      console.log(comment); // Object
+    },
+    (error) => {
+      console.log(error.message);
+    }
+  );
 ```
-
 
 ### `deleteComment()`
+
 Delete a comment
 
-__Syntax__
+**Syntax**
 
 ```js
-let promise = adapter.deleteComment(documentId, commentId)
+let promise = adapter.deleteComment(documentId, commentId);
 ```
 
-__Parameters__
+**Parameters**
 
-| parameter | description |
-|---|---|
+| parameter    | description            |
+| ------------ | ---------------------- |
 | `documentId` | The ID of the document |
-| `commentId` | The ID of the comment |
+| `commentId`  | The ID of the comment  |
 
-__Returns__
+**Returns**
 
 `Promise`
 
@@ -320,17 +353,17 @@ A settled Promise will be either:
 - fulfilled: `Boolean`
 - rejected: `Error`
 
-__Usage__
+**Usage**
 
 ```js
-PDFJSAnnotate.getStoreAdapter().deleteComment(
-    'example.pdf',
-    '8ce957c4-90fa-475b-bd5c-ae9d5ab7c0ae'
-  ).then(() => {
-    console.log('deleted');
-  }, (error) => {
-    console.log(error.message);
-  });
+PDFJSAnnotate.getStoreAdapter()
+  .deleteComment("example.pdf", "8ce957c4-90fa-475b-bd5c-ae9d5ab7c0ae")
+  .then(
+    () => {
+      console.log("deleted");
+    },
+    (error) => {
+      console.log(error.message);
+    }
+  );
 ```
-
-
