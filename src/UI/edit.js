@@ -15,6 +15,7 @@ import {
   convertToSvgPoint,
   scaleDown
 } from './utils';
+import { appendChild } from '../render/appendChild';
 
 let _enabled = false;
 let isDragging = false;
@@ -319,8 +320,6 @@ function handleDocumentMouseup(e) {
     //   });
     }
     else if (type === 'drawing' || type === 'arrow') {
-      // Do nothing as currently broken
-      /*
       let modelStart = convertToSvgPoint([dragStartX, dragStartY], svg);
       let modelEnd = convertToSvgPoint([overlay.offsetLeft, overlay.offsetTop], svg);
       let modelDelta = {
@@ -328,16 +327,16 @@ function handleDocumentMouseup(e) {
         y: modelEnd[1] - modelStart[1]
       };
 
+      // update annotation
       annotation.lines.forEach((line, i) => {
         let [x, y] = annotation.lines[i];
-        annotation.lines[i][0] = x + modelDelta.x;
-        annotation.lines[i][1] = y + modelDelta.y;
+        annotation.lines[i][0] = parseFloat(x) + modelDelta.x;
+        annotation.lines[i][1] = parseFloat(y) + modelDelta.y;
       });
 
+      // replace old path with new one
       target[0].parentNode.removeChild(target[0]);
       appendChild(svg, annotation);
-      */
-      return;
     }
 
     PDFJSAnnotate.getStoreAdapter().editAnnotation(documentId, annotationId, annotation);
