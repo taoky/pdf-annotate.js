@@ -241,6 +241,7 @@ function handleDocumentMouseup(e) {
 
   overlay.querySelector('a').style.display = '';
 
+  // Move annotation
   PDFJSAnnotate.getStoreAdapter().getAnnotation(documentId, annotationId).then((annotation) => {
     let attribX = 'x';
     let attribY = 'y';
@@ -255,9 +256,9 @@ function handleDocumentMouseup(e) {
           x: overlay.offsetLeft,
           y: overlay.offsetTop
         };
-        t.setAttribute(attribX, moveTo.x);
-        t.setAttribute(attribY, moveTo.y);
         let scaled_pos = scaleDown(svg, moveTo);
+        t.setAttribute(attribX, scaled_pos.x);
+        t.setAttribute(attribY, scaled_pos.y);
         annotation[attribX] = scaled_pos.x;
         annotation[attribY] = scaled_pos.y;
       });
