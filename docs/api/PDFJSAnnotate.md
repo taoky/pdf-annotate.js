@@ -11,6 +11,7 @@
   - [`getStoreAdapter()`](#getstoreadapter)
   - [`StoreAdapter`](#storeadapter)
   - [LocalStoreAdapter](#localstoreadapter)
+  - [LocalUserStoreAdapter](#localuserstoreadapter)
   - [`UI`](#ui)
 
 ---
@@ -95,6 +96,10 @@ An implementation of `StoreAdapter` that uses `localStorage` as the backend. Thi
 ```js
 PDFJSAnnotate.setStoreAdapter(new PDFJSAnnotate.LocalStoreAdapter());
 ```
+
+### LocalUserStoreAdapter
+
+An implementation of `StoreAdapter` that uses `localStorage` as the backend. And also, it uses a `userId` variable to differentiate between users.
 
 ### `UI`
 

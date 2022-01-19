@@ -2,8 +2,6 @@
 
 `UI` is the object that enables user interactions for management of annotations in the browser
 
-**TODO: Add enableUI, disableUI, rerenderAnnotations**
-
 **Table of Contents**
 
 - [UI](#ui)
@@ -21,6 +19,10 @@
   - [`disableText()`](#disabletext)
   - [`enableText()`](#enabletext)
   - [`setText()`](#settext)
+  - [`enableUI()`](#enableui)
+  - [`disableUI()`](#disableui)
+  - [`rerenderAnnotations()`](#rerenderannotations)
+  - [`no-annotation` CSS class](#no-annotation-css-class)
 
 ---
 
@@ -207,3 +209,44 @@ UI.setText([size[, color]])
 | --------- | -------------------------------------------- |
 | `size`    | The size of the text (defaults to 12)        |
 | `color`   | The color of the text (defaults to "000000") |
+
+### `enableUI()`
+
+Enable annotations to be selected.
+
+**Syntax**
+
+```js
+UI.enableUI();
+```
+
+### `disableUI()`
+
+Disable annotations and they cannot be selected.
+
+**Syntax**
+
+```js
+UI.disableUI();
+```
+
+### `rerenderAnnotations()`
+
+Re-render annotations on specific page number.
+
+**Syntax**
+
+```js
+UI.rerenderAnnotations(pageNumber, renderOptions);
+```
+
+**Parameters**
+
+| parameter       | description                    |
+| --------------- | ------------------------------ |
+| `pageNumber`    | The page number to be rendered |
+| `renderOptions` | The options for rendering      |
+
+### `no-annotation` CSS class
+
+`no-annotation` CSS class should be assigned to elements that may be overlapped with the PDF annotation layer. Otherwise annotations may accidentally be moved/created when clicking on the above HTML layer.

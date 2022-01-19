@@ -2,8 +2,6 @@
 
 The `StoreAdapter` is an abstract class that will need to be implemented for fetching annotation data. An unimplemented instance of `StoreAdapter` is used as the default adapter. Any call to an umimplemented adapter will result in an `Error` being thrown.
 
-**TODO: Add undo/redo/clear history interface**
-
 **Usage**
 
 ```js
@@ -35,6 +33,18 @@ let MyStoreAdapter = new PDFJSAnnotate.StoreAdapter({
   deleteComment(documentId, commentId) {
     /* ... */
   },
+
+  undo(documentId) {
+    /* ... */
+  },
+
+  redo(documentId) {
+    /* ... */
+  },
+
+  clearHistory(documentId) {
+    /* ... */
+  }
 });
 ```
 
@@ -48,6 +58,9 @@ let MyStoreAdapter = new PDFJSAnnotate.StoreAdapter({
   - [`deleteAnnotation()`](#deleteannotation)
   - [`addComment()`](#addcomment)
   - [`deleteComment()`](#deletecomment)
+  - [`undo()`](#undo)
+  - [`redo()`](#redo)
+  - [`clearHistory()`](#clearhistory)
 
 ---
 
@@ -361,6 +374,192 @@ PDFJSAnnotate.getStoreAdapter()
   .then(
     () => {
       console.log("deleted");
+    },
+    (error) => {
+      console.log(error.message);
+    }
+  );
+```
+
+### `undo()`
+
+The undo/redo functionalites require the object `history` in `StoreAdapter` maintained properly by the adapter.
+
+An example of `history`:
+
+```js
+{
+  "example.pdf": {
+    "record": [
+      [
+        {
+          "type": "area",
+          "x": 69,
+          "y": 44,
+          "width": 140,
+          "height": 62.66666666666666,
+          "class": "Annotation",
+          "uuid": "bae144ef-69ec-4c6f-a33d-4c8a45b9483b",
+          "page": 1
+        },
+        {
+          "type": "highlight",
+          "color": "FFFF00",
+          "rectangles": [
+            {
+              "x": 277.3222249348958,
+              "y": 76.35556030273438,
+              "width": 42.53333536783856,
+              "height": 20.66666666666667
+            }
+          ],
+          "class": "Annotation",
+          "uuid": "8b164e67-5b24-47ac-a1f7-5780cfe33251",
+          "page": 1
+        }
+      ],
+      [
+        {
+          "type": "area",
+          "x": 77,
+          "y": 60.666666666666664,
+          "width": 140,
+          "height": 62.66666666666666,
+          "class": "Annotation",
+          "uuid": "bae144ef-69ec-4c6f-a33d-4c8a45b9483b",
+          "page": 1
+        },
+        {
+          "type": "highlight",
+          "color": "FFFF00",
+          "rectangles": [
+            {
+              "x": 277.3222249348958,
+              "y": 76.35556030273438,
+              "width": 42.53333536783856,
+              "height": 20.66666666666667
+            }
+          ],
+          "class": "Annotation",
+          "uuid": "8b164e67-5b24-47ac-a1f7-5780cfe33251",
+          "page": 1
+        }
+      ]
+    ],
+    "idx": 1
+  }
+}
+```
+
+Here `idx` is the current status index. When undoing/redoing, the `idx` changes and the annotation on screen should be updated.
+
+**Syntax**
+
+```js
+let promise = adapter.undo(documentId);
+```
+
+**Parameters**
+
+| parameter    | description            |
+| ------------ | ---------------------- |
+| `documentId` | The ID of the document |
+
+**Returns**
+
+`Promise`
+
+A settled Promise will be either:
+
+- fulfilled: `Boolean`
+- rejected: `Error`
+
+**Usage**
+
+```js
+PDFJSAnnotate.getStoreAdapter()
+  .undo("example.pdf")
+  .then(
+    () => {
+      console.log("undone");
+    },
+    (error) => {
+      console.log(error.message);
+    }
+  );
+```
+
+### `redo()`
+
+**Syntax**
+
+```js
+let promise = adapter.redo(documentId);
+```
+
+**Parameters**
+
+| parameter    | description            |
+| ------------ | ---------------------- |
+| `documentId` | The ID of the document |
+
+**Returns**
+
+`Promise`
+
+A settled Promise will be either:
+
+- fulfilled: `Boolean`
+- rejected: `Error`
+
+**Usage**
+
+```js
+PDFJSAnnotate.getStoreAdapter()
+  .redo("example.pdf")
+  .then(
+    () => {
+      console.log("redone");
+    },
+    (error) => {
+      console.log(error.message);
+    }
+  );
+```
+
+### `clearHistory()`
+
+Clear the editing history (`history[doc]`) in adapter.
+
+**Syntax**
+
+```js
+let promise = adapter.clearHistory(documentId);
+```
+
+**Parameters**
+
+| parameter    | description            |
+| ------------ | ---------------------- |
+| `documentId` | The ID of the document |
+
+**Returns**
+
+`Promise`
+
+A settled Promise will be either:
+
+- fulfilled: `Boolean`
+- rejected: `Error`
+
+**Usage**
+
+```js
+PDFJSAnnotate.getStoreAdapter()
+  .clearHistory("example.pdf")
+  .then(
+    () => {
+      console.log("history cleared");
     },
     (error) => {
       console.log(error.message);
