@@ -204,7 +204,10 @@ describe('UI::edit', function() {
     enableEdit();
     svg.appendChild(path);
     simulateMoveOverlay(function(args) {
-      equal(editAnnotationSpy.called, false);
+      equal(editAnnotationSpy.called, true);
+      equal(args[0], 'test-document-id');
+      equal(args[1], path.getAttribute('data-pdf-annotate-id'));
+      equal(args[2], DEFAULT_PATH_ANNOTATION);
       done();
     });
   });
