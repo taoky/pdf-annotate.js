@@ -273,7 +273,8 @@ function handleDocumentMouseup(e) {
       };
 
       if (type === 'textbox') {
-        target = [target[0].firstChild];
+        // <text> and <tspan> both need to be targets.
+        target = [target[0].firstChild, target[0].firstChild.firstChild];
       }
 
       [...target].forEach((t, i) => {
