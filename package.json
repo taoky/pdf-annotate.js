@@ -44,11 +44,10 @@
     "chai": "^4.2.0",
     "codecov": "^3.8.0",
     "eslint": "^7.32.0",
-    "istanbul-instrumenter-loader": "^3.0.1",
     "karma": "^6.3.2",
     "karma-chrome-launcher": "^3.0.0",
     "karma-cli": "^2.0.0",
-    "karma-coverage-istanbul-reporter": "^3.0.3",
+    "karma-coverage": "^2.1.0",
     "karma-firefox-launcher": "^2.1.1",
     "karma-mocha": "^2.0.0",
     "karma-sinon-chai": "^2.0.2",
@@ -63,7 +62,6 @@
     "webpack-cli": "^4.7.2",
     "webpack-dev-server": "^4.7.3"
   },
-  "dependencies": {},
   "peerDependencies": {
     "pdfjs-dist": "^2.5.207"
   },

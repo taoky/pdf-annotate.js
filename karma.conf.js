@@ -1,11 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
 
-let reporters = [
-  process.env.TRAVIS ? 'dots' : 'progress',
-  'coverage-istanbul'
-];
-
 module.exports = function(config) {
   config.set({
 
@@ -21,10 +16,11 @@ module.exports = function(config) {
     ],
 
     preprocessors: {
-      'test/**/*.spec.js': ['webpack', 'sourcemap']
+      'test/**/*.spec.js': ['webpack', 'sourcemap'],
+      'src/**/*.js': ['coverage']
     },
 
-    reporters: reporters,
+    reporters: ['progress', 'coverage'],
 
     port: 9876,
 
@@ -55,17 +51,6 @@ module.exports = function(config) {
             options: {
               presets: ['@babel/preset-env']
             }
-          },
-          {
-            test: /\.js$/,
-            enforce: 'post',
-            use: {
-              loader: 'istanbul-instrumenter-loader',
-              options: {
-                esModules: true
-              }
-            },
-            include: path.resolve('src/')
           }
         ]
       },
@@ -82,11 +67,9 @@ module.exports = function(config) {
         colors: true
       }
     },
-    coverageIstanbulReporter: {
+    coverageReporter: {
       reports: [ 'html', 'lcovonly', 'text-summary' ],
-      dir: path.join(__dirname, 'coverage'),
-      combineBrowserReports: true,
-      fixWebpackSourcePaths: true
+      dir: path.join(__dirname, 'coverage')
     }
   });
 };
