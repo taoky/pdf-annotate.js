@@ -15,7 +15,7 @@ module.exports = function(config) {
       'karma-coverage',
       'karma-sinon-chai',
       'karma-firefox-launcher',
-      'karma-chrome-launcher',
+      'karma-chrome-launcher'
     ],
 
     files: [
@@ -69,12 +69,12 @@ module.exports = function(config) {
           'process.env.CI': JSON.stringify(process.env.CI),
           'process.env.TRAVIS': JSON.stringify(process.env.TRAVIS),
           'process.env.NODE_DEBUG': false,
-          'process.stderr': null,
+          'process.stderr': null
         })
       ],
       resolve: {
         fallback: {
-          "assert": require.resolve("assert/"),
+          'assert': require.resolve('assert/')
         }
       }
     },
