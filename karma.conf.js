@@ -6,17 +6,7 @@ module.exports = function(config) {
 
     basePath: '',
 
-    frameworks: ['mocha', 'sinon-chai', 'webpack'],
-
-    plugins: [
-      'karma-webpack',
-      'karma-mocha',
-      'karma-sourcemap-loader',
-      'karma-coverage',
-      'karma-sinon-chai',
-      'karma-firefox-launcher',
-      'karma-chrome-launcher'
-    ],
+    frameworks: ['mocha', 'sinon-chai'],
 
     files: [
       'test/**/*.spec.js'
@@ -67,16 +57,9 @@ module.exports = function(config) {
       plugins: [
         new webpack.DefinePlugin({
           'process.env.CI': JSON.stringify(process.env.CI),
-          'process.env.TRAVIS': JSON.stringify(process.env.TRAVIS),
-          'process.env.NODE_DEBUG': false,
-          'process.stderr': null
+          'process.env.TRAVIS': JSON.stringify(process.env.TRAVIS)
         })
-      ],
-      resolve: {
-        fallback: {
-          'assert': require.resolve('assert/')
-        }
-      }
+      ]
     },
 
     webpackServer: {
